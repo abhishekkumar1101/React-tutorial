@@ -1,0 +1,20 @@
+{
+  "name": "inception-01",
+  "version": "1.0.0",
+  "description": "this is react tutorial",
+  "main": "App.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abhishekkumar1101/react-tutorial.git"
+  },
+  "keywords": [
+    "react",
+    "tutorial",
+    "frontend"
+  ],
+  "author": "Abhishek kumar",
+  "license": "ISC"
+}
