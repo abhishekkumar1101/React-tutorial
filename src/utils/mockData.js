@@ -1,4 +1,4 @@
-const resList = [
+ const resList = [
     {
       "info": {
         "id": "426730",

@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "this is react tutorial",
   "scripts": {
-    "start":"parcel index.html",
-    "build":"parcel build index.html",
+    "start": "parcel index.html",
+    "build": "parcel build index.html",
     "test": "jest"
   },
   "repository": {
@@ -20,13 +20,16 @@
   "license": "ISC",
   "devDependencies": {
     "parcel": "^2.12.0",
-    "process": "^0.11.10"
+    "postcss": "^8.4.45",
+    "process": "^0.11.10",
+    "tailwindcss": "^3.4.10"
   },
   "dependencies": {
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.1"
   },
-  "browserslists":[
+  "browserslists": [
     "last 2 versions"
   ]
 }

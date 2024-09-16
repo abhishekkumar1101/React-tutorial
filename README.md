@@ -12,3 +12,4 @@ import name from "path
 -nmaed export/import
 export const name
 import {name} from [path]
+# whenever we make changes in state variables react triggers a reconcilation (re-renders the component)
