@@ -27,8 +27,11 @@ const Body = ()=>{
         setListOfRestaurant(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
         //console.log(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
         setFilteredRestaurant(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
-        setWoym(json?.data?.cards[0]?.card?.card?.gridElements?.infoWithStyle?.info);
-        console.log(json?.data?.cards[0]?.card?.card?.gridElements?.infoWithStyle?.info);
+        const woymData = json?.data?.cards[0]?.card?.card?.gridElements?.infoWithStyle?.info || [];
+        setWoym(Array.isArray(woymData) ? woymData : []);
+        //setWoym(json?.data?.cards[0]?.card?.card?.gridElements?.infoWithStyle?.info);
+        //console.log(woymData.length);
+        //console.log( typeof(woymData));
         
     };
     
@@ -42,12 +45,12 @@ const Body = ()=>{
         const {loggedInUser,setUserName} = useContext(UserContext);
         
         return listOfRestaurants.length===0 ? <Shimmer /> : (
-            <div className="body">
-                <h1 className="font-semibold text-3xl my-6 mx-12 ">What's On Your Mind</h1>
+            <div className="body mx-3">
+                <h1 className="font-semibold text-3xl my-6 mx-4 ">What's On Your Mind</h1>
                 <div className="flex flex-wrap" >
 
-                {woym.map((curated) => (
-                <BelowHeaderElement key={curated.id} woymItems={curated} />
+                {woym.length > 0 && woym.map((curated) => (
+                  <BelowHeaderElement key={curated.id} woymItems={curated} />
 ))}
 
                     </div>
@@ -93,6 +96,7 @@ const Body = ()=>{
                 />
                 </div>
                 </div>
+                <h1 className="font-semibold text-3xl my-6 mx-12 ">Top Restaurant In Banglore</h1>
             <div className="res-container flex flex-wrap m-12">
                 {
                 filteredRestaurant.map(restaurant =>

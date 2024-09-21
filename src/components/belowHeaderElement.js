@@ -1,10 +1,11 @@
 import { woym_URL } from "../utils/contants";
 const BelowHeaderElement = (props) => {
   const { woymItems } = props;
-  console.log(woymItems);
-
+ // console.log(woymItems);
+ if(woymItems) console.log(woymItems.length);
+  
+  
   if (woymItems) 
-    
     return (
    <div >
     <div className="mx-13">
