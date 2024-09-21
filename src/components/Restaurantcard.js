@@ -1,30 +1,40 @@
 import {CDN_URL} from "../utils/contants";
+import UserContext from "../utils/userContext";
+import { useContext } from "react";
+const RestaurantCard = (props) => {
+    const { resData } = props;
 
-const RestaurantCard = (props)=>{
-    const  {resData} = props;
+    const {loggedInUser} = useContext(UserContext);
     return (
-    <div className="res-card p-4 m-4 w-[250px] bg-gray-200 rounded-lg" >
-      
-          <img className="res-logo rounded-lg" src = { CDN_URL 
-            + resData.info.cloudinaryImageId 
-            }
-            /> 
-            
-                <h3 className="font-bold text-xl py-2">{resData.info.name}</h3>
-                <p>{resData.info.avgRating}</p> 
-            
-                <p>{resData.info.cuisines.join(' ,')}</p>
-                <p>{resData.info.costForTwo}</p>
-           
-            
-                <p>{resData.info.locality},{resData.info.areaName}</p>
-                <p>{resData.info.sla.slaString}</p>
-            
-        
-    </div>
-    );
+        <div className="m-6">
+        <div className="res-card  w-[300px] h-[400px] bg-gray-200 rounded-lg flex flex-col object-fill">
+            {/* Image Section */}
+            <div className="relative w-full h-[240px] overflow-hidden">
+                <img
+                    className="w-full h-full object-cover rounded-lg"
+                    src={CDN_URL + resData.info.cloudinaryImageId}
+                    alt={resData.info.name}
+                />
+            </div>
 
+            {/* Content Section */}
+            <div className="flex flex-col p-2 flex-grow overflow-hidden scrollable-content">
+                <h3 className="font-bold text-xl py-2 truncate">{resData.info.name}</h3>
+                <div className="flex">
+                    <p className="text-sm font-bold  truncate">⭐{resData.info.avgRating}</p>
+                    <p className="text-sm font-bold truncate mx-2">{resData.info.sla.slaString}</p>
+                    </div>
+                <p className="text-sm text-gray-600 truncate">{resData.info.cuisines.join(' ,')}</p>
+                <p className="text-sm text-gray-600 truncate">{resData.info.costForTwo}</p>
+                <p className="text-sm text-gray-600 truncate">{resData.info.locality}, {resData.info.areaName}</p>
+                
+                <p>User : {loggedInUser}</p>
+            </div>
+        </div>
+        </div>
+    );
 };
+
     //higher order component
     export const withPromotedLabel = (RestaurantCard)=>{
         return (props) =>{

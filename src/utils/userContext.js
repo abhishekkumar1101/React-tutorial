@@ -1,6 +1,7 @@
 import { createContext} from "react";
-const userContext = createContext({
-    loggedUsser : "default User"
+export const RestaurantContext = createContext();
+const UserContext = createContext({
+    loggedInUser : "default User"
 })
 
-export default userContext;
+export default UserContext;

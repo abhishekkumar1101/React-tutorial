@@ -16,7 +16,7 @@ const RestaurantMenu = () =>{
     const {itemCards} = resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card;
 
 
-    console.log(resInfo.cards[4].groupedCard.cardGroupMap.REGULAR.cards[2].card.card);
+   // console.log(resInfo.cards[4].groupedCard.cardGroupMap.REGULAR.cards[2].card.card);
 //console.log(resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards);
 
    const categories = resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
@@ -34,12 +34,10 @@ const RestaurantMenu = () =>{
                 <RestaurantCategory 
                 key = {category?.card?.card?.title} 
                 data = {category?.card?.card} 
-                showItems = {index===showIndex?true:false}
-                setShowIndex = {()=>setShowIndex(index)}
+                showItems = {index===showIndex}
+                setShowIndex = {()=>setShowIndex(index===showIndex?null:index)}
                  />
-            ))};
-
-            
+            ))};    
             
         </div>
     );

@@ -1,8 +1,10 @@
 import RestaurantCard,{withPromotedLabel} from "./Restaurantcard.js"
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import Shimmer from "./shimmer.js";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus.js";
+import UserContext from "../utils/userContext.js";
+
 //import resList from "../utils/mockData.js";
 const Body = ()=>{
     //Local state variable 
@@ -32,6 +34,7 @@ const Body = ()=>{
                 LOOKS LIKE YOU ARE OFFLINE.PLEASEC CHECK YOUR INTERNET CONNECTION
             </h1>
         );
+        const {loggedInUser,setUserName} = useContext(UserContext);
     
     return listOfRestaurants.length===0 ? <Shimmer /> : (
         <div className="body">
@@ -64,8 +67,18 @@ const Body = ()=>{
                         setListOfRestaurant(filteredList)
                         console.log(listOfRestaurants);
                     }}>Top Rated Restaurant</button>
-            </div>
-            <div className="res-container flex flex-wrap">
+            <div className="search m-6 p-4">
+                <label>Username: </label>
+                <input
+                className=  "border border-black border-solid " 
+                type="text"
+                value={loggedInUser} 
+                onChange={(e) =>
+                    setUserName(e.target.value)}
+                />
+                </div>
+                </div>
+            <div className="res-container flex flex-wrap m-12">
                 {
                 filteredRestaurant.map(restaurant =>
                      <Link key = {restaurant.info.id}
