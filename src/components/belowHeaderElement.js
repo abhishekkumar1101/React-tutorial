@@ -1,19 +1,20 @@
-import { useContext } from "react";
-import { RestaurantContext } from "../utils/userContext";
+import { woym_URL } from "../utils/contants";
+const BelowHeaderElement = (props) => {
+  const { woymItems } = props;
+  console.log(woymItems);
 
-const BelowheaderElement = () => {
-  const { restaurantData } = useContext(RestaurantContext);
-
-  return (
-    <div>
-      {/* Access the restaurant data here */}
-      {restaurantData ? (
-        <p>Number of Restaurants: {restaurantData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants.length}</p>
-      ) : (
-        <p>No data available</p>
-      )}
+  if (woymItems) 
+    
+    return (
+   <div >
+    <div className="mx-13">
+      <div className="flex flex-row"> 
+        <div className="">
+          <img className="w-36 " src={woym_URL+woymItems.imageId} alt="Restaurant" />
+        </div>
+      </div>
     </div>
-  );
+    </div>
+    );
 };
-
-export default BelowheaderElement;
+export default BelowHeaderElement;

@@ -4,12 +4,14 @@ import Shimmer from "./shimmer.js";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus.js";
 import UserContext from "../utils/userContext.js";
+import BelowHeaderElement from "./belowHeaderElement.js";
 
 //import resList from "../utils/mockData.js";
 const Body = ()=>{
     //Local state variable 
     const [listOfRestaurants,setListOfRestaurant]=useState([])
-    const [filteredRestaurant,setFilteredRestaurant]=useState([]);
+    const [filteredRestaurant,setFilteredRestaurant]=useState(null);
+    const [woym, setWoym] = useState([])
 
     const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
     const [searchText,setSearchtext] = useState("");
@@ -22,22 +24,33 @@ const Body = ()=>{
         );
         
         const json = await data.json();
-        //console.log(json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants);
         setListOfRestaurant(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+        //console.log(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
         setFilteredRestaurant(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+        setWoym(json?.data?.cards[0]?.card?.card?.gridElements?.infoWithStyle?.info);
+        console.log(json?.data?.cards[0]?.card?.card?.gridElements?.infoWithStyle?.info);
+        
     };
-
+    
     const onlineStatus = useOnlineStatus();
     if(onlineStatus===false)
         return(
-            <h1>
+        <h1>
                 LOOKS LIKE YOU ARE OFFLINE.PLEASEC CHECK YOUR INTERNET CONNECTION
             </h1>
         );
         const {loggedInUser,setUserName} = useContext(UserContext);
-    
-    return listOfRestaurants.length===0 ? <Shimmer /> : (
-        <div className="body">
+        
+        return listOfRestaurants.length===0 ? <Shimmer /> : (
+            <div className="body">
+                <h1 className="font-semibold text-3xl my-6 mx-12 ">What's On Your Mind</h1>
+                <div className="flex flex-wrap" >
+
+                {woym.map((curated) => (
+                <BelowHeaderElement key={curated.id} woymItems={curated} />
+))}
+
+                    </div>
             <div className="filter flex">
                 <div className="search m-4 p-4">
                 <input
@@ -61,11 +74,13 @@ const Body = ()=>{
                 >search</button>
                 </div>
                     <button className="filter-btn bg-gray-50 h-10 m-8 p-2 rounded-md hover:bg-gray-200" onClick ={()=>{
+                        console.log("clicked");
+                        
                         const filteredList = listOfRestaurants.filter(
-                            (res) => res.info.avgRating > 4.6
+                            (res) => res.info.avgRating > 4.3
                         );
                         setListOfRestaurant(filteredList)
-                        console.log(listOfRestaurants);
+                        //console.log(listOfRestaurants);
                     }}>Top Rated Restaurant</button>
             <div className="search m-6 p-4">
                 <label>Username: </label>
@@ -81,10 +96,9 @@ const Body = ()=>{
             <div className="res-container flex flex-wrap m-12">
                 {
                 filteredRestaurant.map(restaurant =>
-                     <Link key = {restaurant.info.id}
-                     to ={ "/restaurants/"+ restaurant.info.id} >
-                        {restaurant.info.promoted ? (<RestaurantCardPromoted resData = {restaurant}/>) : (<RestaurantCard  resData = {restaurant}/>)
-                        }</Link>)
+                     <Link key = {restaurant.info.id} to ={ "/restaurants/"+ restaurant.info.id} >
+                        {(<RestaurantCard  resData = {restaurant}/>)}
+                        </Link>)
             }
             
             </div>
